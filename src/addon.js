@@ -2,6 +2,15 @@ const { addonBuilder } = require("stremio-addon-sdk");
 const Player = require('mpris-service');
 const fetch_metadata = require('./metadata.js');
 const { sendKeyToStremio } = require('./window.js');
+const { exec } = require('child_process');
+
+
+exec("which xdotool", (err, stdout) => {
+  if (err || !stdout) {
+    console.error("[MPRIS] ERROR: 'xdotool' is not installed.");
+    process.exit(1);
+  }
+});
 
 const manifest = {
   id: 'com.undefinedDarkness.stremio.metadata',
